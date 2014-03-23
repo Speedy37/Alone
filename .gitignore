@@ -38,7 +38,10 @@ UDKGame/CookedPC/
 UDKGame/CookedMac/
 UDKGame/ScriptFinalRelease/
 UDKGame/Cache/
-Development/
+Development/Flash
+Development/Src/*
+!Development/Src/RV8
+!Development/Src/RV8.ucproj
 UDKGame/Flash/
 UDKGame/Movies/
 UDKGame/Splash/

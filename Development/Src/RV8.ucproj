@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <ProductVersion>1.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{47105883-6c1d-4a70-ba51-cd0a7ff4e0ff}</ProjectGuid>
+    <OutputType>UserMod</OutputType>
+    <ProjectType>UnrealScript</ProjectType>
+    <RootNamespace>MyMod2</RootNamespace>
+    <AssemblyName>MyMod2</AssemblyName>
+    <Name>MyMod2</Name>
+    <TargetGame>UnrealEngine 3 Licensee</TargetGame>
+    <UccGamePrefix />
+    <UccPath>..\..\Binaries\Win32\UDK.exe</UccPath>
+    <StartProgram>..\..\Binaries\Win32\UDK.exe</StartProgram>
+    <BaseContentPath>..\..\Engine\Content</BaseContentPath>
+    <GameContentPath>..\..\UDKGame\Content</GameContentPath>
+    <PackageExtensions>.upk;.udk</PackageExtensions>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Win32' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <UccUseUnpublished>False</UccUseUnpublished>
+    <UseUnpublished>False</UseUnpublished>
+    <NoSound>True</NoSound>
+    <NoStartupMovies>True</NoStartupMovies>
+    <ForceWindowedMode>True</ForceWindowedMode>
+    <WindowWidth>1024</WindowWidth>
+    <WindowHeight>768</WindowHeight>
+    <ShowLogWindow>True</ShowLogWindow>
+    <LogToFile>False</LogToFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Win32' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <UccUseUnpublished>False</UccUseUnpublished>
+    <UseUnpublished>False</UseUnpublished>
+    <NoSound>False</NoSound>
+    <NoStartupMovies>False</NoStartupMovies>
+    <ForceWindowedMode>True</ForceWindowedMode>
+    <WindowWidth>1024</WindowWidth>
+    <WindowHeight>768</WindowHeight>
+    <ShowLogWindow>False</ShowLogWindow>
+    <LogToFile>False</LogToFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <UccUseUnpublished>False</UccUseUnpublished>
+    <UccMultiPackageBuild>False</UccMultiPackageBuild>
+    <BuildArgs />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="*\Classes\**\*.uc" />
+    <Content Include="**\*.uci" />
+  </ItemGroup>
+  <ItemGroup>
+    <Config Include="..\..\UDKGame\Config\Default*.ini">
+      <Link>Config\Default*.ini</Link>
+    </Config>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Core\" />
+    <Folder Include="Core\Classes\" />
+    <Folder Include="Engine\" />
+    <Folder Include="Engine\Classes\" />
+    <Folder Include="EvolutionGame\" />
+    <Folder Include="EvolutionGame\Classes\" />
+    <Folder Include="GameFramework\" />
+    <Folder Include="GameFramework\Classes\" />
+    <Folder Include="GFxUIEditor\" />
+    <Folder Include="GFxUIEditor\Classes\" />
+    <Folder Include="GFxUI\" />
+    <Folder Include="GFxUI\Classes\" />
+    <Folder Include="IpDrv\" />
+    <Folder Include="IpDrv\Classes\" />
+    <Folder Include="MyMod2\" />
+    <Folder Include="MyMod2\Classes\" />
+    <Folder Include="OnlineSubsystemGameCenter\" />
+    <Folder Include="OnlineSubsystemGameCenter\Classes\" />
+    <Folder Include="OnlineSubsystemPC\" />
+    <Folder Include="OnlineSubsystemPC\Classes\" />
+    <Folder Include="OnlineSubsystemSteamworks\" />
+    <Folder Include="OnlineSubsystemSteamworks\Classes\" />
+    <Folder Include="RV8\" />
+    <Folder Include="RV8\Classes\" />
+    <Folder Include="SubstanceAirEd\" />
+    <Folder Include="SubstanceAirEd\Classes\" />
+    <Folder Include="SubstanceAir\" />
+    <Folder Include="SubstanceAir\Classes\" />
+    <Folder Include="UDKBase\" />
+    <Folder Include="UDKBase\classes\" />
+    <Folder Include="UnrealEd\" />
+    <Folder Include="UnrealEd\Classes\" />
+    <Folder Include="UTEditor\" />
+    <Folder Include="UTEditor\Classes\" />
+    <Folder Include="UTGameContent\" />
+    <Folder Include="UTGameContent\Classes\" />
+    <Folder Include="UTGame\" />
+    <Folder Include="UTGame\Classes\" />
+    <Folder Include="WinDrv\" />
+    <Folder Include="WinDrv\Classes\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\PixelMine\UnrealScript.targets" />
+</Project>
