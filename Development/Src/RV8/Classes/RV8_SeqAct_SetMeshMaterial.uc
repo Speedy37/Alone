@@ -19,7 +19,7 @@ event Activated()
 
 defaultproperties
 {
-	ObjName="Set Material"
+	ObjName="Set Static Mesh Material"
 	ObjCategory="Actor"
 
 	VariableLinks.Empty
