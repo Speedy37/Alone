@@ -3,6 +3,7 @@ class RV8TorchWeapon extends UTWeapon;
 var ParticleSystemComponent FireParticleComponent;
 var LightComponent FireLightComponent;
 var AudioComponent FireSound;
+var bool bActivated;
 
 simulated function PostBeginPlay()
 {
@@ -17,11 +18,49 @@ simulated function PostBeginPlay()
 
 	SKMesh.AttachComponentToSocket(FireLightComponent, 'Fire');
 	SKMesh.AttachComponentToSocket(FireSound, 'Fire');
+	bActivated = true;
+}
+
+simulated function SimulatePickup()
+{
+
+}
+
+simulated function SimulateDropdown()
+{
+
+}
+
+simulated function LightDown()
+{
+	if(bActivated)
+	{
+		FireParticleComponent.DeactivateSystem();
+		FireParticleComponent = none;
+		FireSound.Stop();
+		FireLightComponent.SetEnabled(false);
+		Mesh.SetMaterial(7, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST_OFF');
+		bActivated = false;
+	}
+}
+
+simulated function LightUp()
+{
+	if(!bActivated)
+	{
+		FireParticleComponent = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'vincent_materials.scripts.P_UDK_TorchFire01', SkeletalMeshComponent(Mesh), 'Fire', true);
+		FireParticleComponent.SetScale(0.5);
+		FireSound.Play();
+		FireLightComponent.SetEnabled(true);
+		Mesh.SetMaterial(7, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST');
+		bActivated = true;
+	}
 }
 
 defaultproperties
 {
 	PlayerViewOffset=(X=10.000000,Y=10.000000,Z=-90.000000)
+	AttachmentClass=class'RV8TorchWeaponAttachment'
 
 	// Weapon SkeletalMesh
 	Begin Object class=AnimNodeSequence Name=MeshSequenceA
@@ -30,7 +69,7 @@ defaultproperties
 	// Weapon SkeletalMesh
 	Begin Object Name=FirstPersonMesh
 		SkeletalMesh=SkeletalMesh'vincent_materials.scripts.SK_RV_Torch'
-		//AnimSets(0)=AnimSet'WP_ShockRifle.Anim.K_WP_ShockRifle_1P_Base'
+		AnimSets(0)=AnimSet'vincent_materials.scripts.K_RV_Torch'
 		Animations=MeshSequenceA
 	End Object
 
@@ -67,9 +106,13 @@ defaultproperties
 	FireInterval(1)=+1.0
 	ShotCost(0)=0
 	ShotCost(1)=0
+	InstantHitDamage(0)=10.0
+	FireCameraAnim(0)=CameraAnim'vincent_materials.scripts.C_RV_TorchFireShake'
+	WeaponFireAnim(0)=Fire2
+	WeaponIdleAnims(0)=Idle
 	PlayerViewOffset=(X=0.0,Y=7.0,Z=-9.0)
 
-	WeaponFireTypes(0)=EWFT_Custom
+	WeaponFireTypes(0)=EWFT_InstantHit
 	WeaponFireTypes(1)=EWFT_Custom
 
 	FireOffset=(X=16,Y=10)

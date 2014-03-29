@@ -8,6 +8,8 @@ function AddDefaultInventory( pawn PlayerPawn )
 
 defaultproperties
 {
+	bUseClassicHUD=true
+	HUDType=class'RV8Hud'
 	PlayerControllerClass=class'RV8PlayerController'
 	DefaultPawnClass=class'RV8Pawn'
 }
