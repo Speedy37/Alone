@@ -1,6 +1,7 @@
 class RV8_SeqAct_ScalePlayer extends SequenceAction;
 
 var() float NewScale;
+var() bool DefaultScale;
 
 event Activated()
 {
@@ -10,7 +11,7 @@ event Activated()
 	{
 		if(PC.Pawn != none)
 		{
-			PC.Pawn.SetDrawScale(NewScale);
+			RV8Pawn(PC.Pawn).Scale(NewScale, DefaultScale);
 		}
 	}
 }
@@ -22,5 +23,6 @@ defaultproperties
 
 	VariableLinks.Empty
 	VariableLinks.Add((ExpectedType=class'SeqVar_Float',LinkDesc="New Scale",PropertyName=NewScale,MaxVars=1))
+	VariableLinks.Add((ExpectedType=class'SeqVar_Bool',LinkDesc="Is Default",PropertyName=DefaultScale,MaxVars=1))
 }
 

@@ -1,8 +1,7 @@
 class RV8TorchWeapon extends UTWeapon;
 
+var SkeletalMeshComponent TorchMesh;
 var ParticleSystemComponent FireParticleComponent;
-var LightComponent FireLightComponent;
-var AudioComponent FireSound;
 var bool bActivated;
 
 simulated function PostBeginPlay()
@@ -12,12 +11,11 @@ simulated function PostBeginPlay()
 	Super.PostBeginPlay();
 	
 	SKMesh = SkeletalMeshComponent(Mesh);
+	SKMesh.AttachComponentToSocket(TorchMesh, 'Weapon');
 
-	FireParticleComponent = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'vincent_materials.scripts.P_UDK_TorchFire01', SKMesh, 'Fire', true);
+	FireParticleComponent = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'vincent_materials.scripts.P_UDK_TorchFire01', TorchMesh, 'Fire', true);
+	FireParticleComponent.SetDepthPriorityGroup(SDPG_Foreground);
 	FireParticleComponent.SetScale(0.5);
-
-	SKMesh.AttachComponentToSocket(FireLightComponent, 'Fire');
-	SKMesh.AttachComponentToSocket(FireSound, 'Fire');
 	bActivated = true;
 }
 
@@ -31,16 +29,19 @@ simulated function SimulateDropdown()
 
 }
 
+simulated function RV8TorchWeaponAttachment GetAttachment()
+{
+	return RV8TorchWeaponAttachment(RV8Pawn(Instigator).CurrentWeaponAttachment);
+}
 simulated function LightDown()
 {
 	if(bActivated)
 	{
 		FireParticleComponent.DeactivateSystem();
 		FireParticleComponent = none;
-		FireSound.Stop();
-		FireLightComponent.SetEnabled(false);
 		Mesh.SetMaterial(7, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST_OFF');
 		bActivated = false;
+		GetAttachment().LightDown();
 	}
 }
 
@@ -50,9 +51,8 @@ simulated function LightUp()
 	{
 		FireParticleComponent = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'vincent_materials.scripts.P_UDK_TorchFire01', SkeletalMeshComponent(Mesh), 'Fire', true);
 		FireParticleComponent.SetScale(0.5);
-		FireSound.Play();
-		FireLightComponent.SetEnabled(true);
 		Mesh.SetMaterial(7, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST');
+		GetAttachment().LightUp();
 		bActivated = true;
 	}
 }
@@ -73,33 +73,11 @@ defaultproperties
 		Animations=MeshSequenceA
 	End Object
 
-	Begin Object Class=PointLightComponent Name=PointLightComponent0
-	    LightAffectsClassification=LAC_DYNAMIC_AFFECTING
-		CastShadows=TRUE
-		CastStaticShadows=TRUE
-		CastDynamicShadows=FALSE
-		bForceDynamicLight=true
-		UseDirectLightMap=FALSE
-		LightingChannels=(Dynamic=TRUE)
-		Brightness=12
-		LightColor=(B=110,G=170,R=255,A=0)
-		Radius=256
-		FalloffExponent=8.0
+	Begin Object Class=SkeletalMeshComponent Name=SkeletalMeshComponent0
+		DepthPriorityGroup=SDPG_Foreground
+		SkeletalMesh=SkeletalMesh'vincent_materials.scripts.SK_RV_Torch_3rd'
 	End Object
-	FireLightComponent = PointLightComponent0
-
-	Begin Object Class=AudioComponent Name=AudioComponent0
-		bAutoPlay=true
-		VolumeMultiplier=0.5
-		SoundCue=SoundCue'A_Vehicle_Generic.Fire.VehicleDerbisLoop_Cue'
-	End Object
-	FireSound=AudioComponent0
-
-	HoldDistanceMin=0.0
-	HoldDistanceMax=750.0
-	WeaponImpulse=2000.0
-	ThrowImpulse=100.0
-	ChangeHoldDistanceIncrement=50.0
+	TorchMesh=SkeletalMeshComponent0
 
 	WeaponColor=(R=255,G=255,B=128,A=255)
 	FireInterval(0)=+1.0
