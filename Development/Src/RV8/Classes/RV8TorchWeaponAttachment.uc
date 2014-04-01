@@ -1,7 +1,7 @@
 class RV8TorchWeaponAttachment extends UTWeaponAttachment;
 
 var ParticleSystemComponent FireParticleComponent;
-var LightComponent FireLightComponent;
+var PointLightComponent FireLightComponent;
 var AudioComponent FireSound;
 
 simulated function AttachTo(UTPawn OwnerPawn)
@@ -19,7 +19,20 @@ simulated function AttachTo(UTPawn OwnerPawn)
 simulated function DetachFrom( SkeletalMeshComponent MeshCpnt )
 {
 	super.DetachFrom(MeshCpnt);
+}
 
+simulated function SimulatePickup()
+{
+	SetHidden(false);
+	FireSound.Play();
+	FireLightComponent.SetEnabled(true);
+}
+
+simulated function SimulateDropdown()
+{
+	SetHidden(true);
+	FireSound.Stop();
+	FireLightComponent.SetEnabled(false);
 }
 
 simulated function LightDown()

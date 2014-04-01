@@ -21,12 +21,14 @@ simulated function PostBeginPlay()
 
 simulated function SimulatePickup()
 {
-
+	SetHidden(false);
+	GetAttachment().SimulatePickup();
 }
 
 simulated function SimulateDropdown()
 {
-
+	SetHidden(true);
+	GetAttachment().SimulateDropdown();
 }
 
 simulated function RV8TorchWeaponAttachment GetAttachment()
@@ -39,7 +41,7 @@ simulated function LightDown()
 	{
 		FireParticleComponent.DeactivateSystem();
 		FireParticleComponent = none;
-		Mesh.SetMaterial(7, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST_OFF');
+		TorchMesh.SetMaterial(0, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST_OFF');
 		bActivated = false;
 		GetAttachment().LightDown();
 	}
@@ -49,9 +51,10 @@ simulated function LightUp()
 {
 	if(!bActivated)
 	{
-		FireParticleComponent = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'vincent_materials.scripts.P_UDK_TorchFire01', SkeletalMeshComponent(Mesh), 'Fire', true);
+		FireParticleComponent = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'vincent_materials.scripts.P_UDK_TorchFire01', TorchMesh, 'Fire', true);
+		FireParticleComponent.SetDepthPriorityGroup(SDPG_Foreground);
 		FireParticleComponent.SetScale(0.5);
-		Mesh.SetMaterial(7, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST');
+		TorchMesh.SetMaterial(0, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST');
 		GetAttachment().LightUp();
 		bActivated = true;
 	}
@@ -88,7 +91,6 @@ defaultproperties
 	FireCameraAnim(0)=CameraAnim'vincent_materials.scripts.C_RV_TorchFireShake'
 	WeaponFireAnim(0)=Fire2
 	WeaponIdleAnims(0)=Idle
-	PlayerViewOffset=(X=0.0,Y=7.0,Z=-9.0)
 
 	WeaponFireTypes(0)=EWFT_InstantHit
 	WeaponFireTypes(1)=EWFT_Custom
