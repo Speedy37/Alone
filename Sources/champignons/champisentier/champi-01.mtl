@@ -1,0 +1,22 @@
+# Blender MTL File: 'champi-01.blend'
+# Material Count: 2
+
+newmtl pied-conique
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Cours_DI5\RV\champignons\pieds\pied-conique.png
+
+newmtl tete-01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:\Cours_DI5\RV\champignons\tetes\tete-01.png
