@@ -1,7 +1,7 @@
 Alone
 =====
 
-Projet réalisé dans le cadre de l'option Réalité Virtuelle au sein du département informatique de Polytech'Tours.
+Projet réalisé dans le cadre de l'option Réalité Virtuelle au sein du département informatique de Polytech Tours.
 
 
 Membres
