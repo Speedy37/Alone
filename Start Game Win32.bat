@@ -1,1 +1,1 @@
-start Binaries/Win32/UDK.exe RV8_Global?game=RV8.RV8Game -log
+start Binaries/Win32/UDK.exe -log
