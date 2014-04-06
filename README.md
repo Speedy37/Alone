@@ -21,7 +21,7 @@ Installation
 
 Ce dépot ne contient pas l'Unreal Developement Kit, vous devez l'installer avant : http://udk.com
 
-Une fois le dépot cloner, vous devez copier le contenu de l'UDK (en général `C:\UDK\UDK-2013-07`) dans le dossier que vous venez de cloner sans rien remplacé.
+Une fois le dépot cloner, vous devez copier le contenu de l'UDK (en général `C:\UDK\UDK-2014-02`) dans le dossier que vous venez de cloner sans rien remplacé.
 
 Si jamais tout n'est pas comme prévu, vous pouvez utiliser la commande suivante 
 
