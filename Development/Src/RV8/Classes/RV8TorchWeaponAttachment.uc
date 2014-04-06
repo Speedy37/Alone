@@ -37,8 +37,7 @@ simulated function SimulateDropdown()
 
 simulated function LightDown()
 {
-	FireParticleComponent.DeactivateSystem();
-	FireParticleComponent = none;
+	FireParticleComponent.SetHidden(true);
 	Mesh.SetMaterial(0, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST_OFF');
 	FireSound.Stop();
 	FireLightComponent.SetEnabled(false);
@@ -46,8 +45,7 @@ simulated function LightDown()
 
 simulated function LightUp()
 {
-	FireParticleComponent = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'vincent_materials.scripts.P_UDK_TorchFire01', Mesh, 'Fire', true);
-	FireParticleComponent.SetScale(0.5);
+	FireParticleComponent.SetHidden(false);
 	Mesh.SetMaterial(0, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST');
 	FireSound.Play();
 	FireLightComponent.SetEnabled(true);

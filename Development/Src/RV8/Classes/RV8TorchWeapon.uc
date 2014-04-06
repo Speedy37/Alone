@@ -12,6 +12,7 @@ simulated function PostBeginPlay()
 	
 	SKMesh = SkeletalMeshComponent(Mesh);
 	SKMesh.AttachComponentToSocket(TorchMesh, 'Weapon');
+	TorchMesh.SetLightEnvironment(UTPawn(Instigator).LightEnvironment);
 
 	FireParticleComponent = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'vincent_materials.scripts.P_UDK_TorchFire01', TorchMesh, 'Fire', true);
 	FireParticleComponent.SetDepthPriorityGroup(SDPG_Foreground);
@@ -39,8 +40,7 @@ simulated function LightDown()
 {
 	if(bActivated)
 	{
-		FireParticleComponent.DeactivateSystem();
-		FireParticleComponent = none;
+		FireParticleComponent.SetHidden(true);
 		TorchMesh.SetMaterial(0, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST_OFF');
 		bActivated = false;
 		GetAttachment().LightDown();
@@ -51,9 +51,7 @@ simulated function LightUp()
 {
 	if(!bActivated)
 	{
-		FireParticleComponent = WorldInfo.MyEmitterPool.SpawnEmitterMeshAttachment(ParticleSystem'vincent_materials.scripts.P_UDK_TorchFire01', TorchMesh, 'Fire', true);
-		FireParticleComponent.SetDepthPriorityGroup(SDPG_Foreground);
-		FireParticleComponent.SetScale(0.5);
+		FireParticleComponent.SetHidden(false);
 		TorchMesh.SetMaterial(0, MaterialInstanceConstant'vincent_materials.scripts.M_UDK_Torch_MASTER_INST');
 		GetAttachment().LightUp();
 		bActivated = true;
@@ -76,7 +74,7 @@ defaultproperties
 		Animations=MeshSequenceA
 	End Object
 
-	Begin Object Class=SkeletalMeshComponent Name=SkeletalMeshComponent0
+	Begin Object Class=UDKSkeletalMeshComponent Name=SkeletalMeshComponent0
 		DepthPriorityGroup=SDPG_Foreground
 		SkeletalMesh=SkeletalMesh'vincent_materials.scripts.SK_RV_Torch_3rd'
 	End Object
